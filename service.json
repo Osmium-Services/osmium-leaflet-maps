@@ -1,0 +1,36 @@
+{
+    "id": "leaflet-maps",
+    "name": "Leaflet Maps",
+    "version": "1.0.0",
+    "description": "Draws a map of pins (clustered, with a fullscreen button) from OpenStreetMap tiles using a bundled Leaflet, for a theme to place anywhere - no API key, no cookies",
+    "category": "developer",
+    "author": {
+        "name": "Gavin Cox"
+    },
+    "license": "proprietary",
+
+    "requires": {
+        "osmium": ">=1.0.0",
+        "php": ">=8.1",
+        "services": []
+    },
+
+    "autoload": [],
+
+    "csp": {
+        "img-src": ["https://*.tile.openstreetmap.org"]
+    },
+
+    "frontend": {
+        "themeBlocks": [
+            {
+                "hook": "leaflet-maps-assets",
+                "file": "theme/leaflet-maps-assets.phtml"
+            }
+        ]
+    },
+
+    "setup": {
+        "postInstallNote": "Add <?php $template['serviceBlock']('leaflet-maps-assets'); ?> once on any page that shows a map (it loads Leaflet's CSS and JS). Then place a map with <div data-osmium-map='JSON'></div>, where JSON is {\"pins\":[{\"lat\":51.5,\"lng\":-0.12,\"title\":\"Name\",\"text\":\"Details\",\"url\":\"https://...\",\"inactive\":false}],\"height\":\"400px\",\"fullscreen\":true}. title, text, url, inactive, height and fullscreen are optional. Build the JSON with htmlspecialchars(json_encode(...), ENT_QUOTES). Tiles load from openstreetmap.org when a visitor views a map."
+    }
+}
