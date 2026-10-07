@@ -3,3 +3,4 @@
 .osmium-map-fullscreen { background: #fff; border: 2px solid rgba(0, 0, 0, .2); border-radius: 4px; width: 34px; height: 34px; font-size: 18px; line-height: 30px; cursor: pointer; padding: 0; }
 .osmium-map-fullscreen:hover { background: #f4f4f4; }
 .osmium-map-inactive { filter: grayscale(1) opacity(.7); }
+.osmium-map-notice { height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; color: #555; font-size: .95rem; background: #e8eaed; border-radius: 6px; }

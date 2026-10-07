@@ -1,13 +1,18 @@
 <?php // Rendered by a theme calling $template['serviceBlock']('leaflet-maps-assets').
 // Loads Leaflet, MarkerCluster and this service's script. Call it once per page
 // that shows a map; pages without a map should not call it, so nothing loads there.
+// Expects $site (for the environment check) in the render context. A map with "consent": true
+// in its JSON waits for cookie consent on a live site (see osmium-maps.js); that needs no
+// Cookie Consent PHP, only its cookie and osmium:consent event.
 // Files live in assets/services/leaflet-maps/ (copied from this service's public/ on install).
+$consentRequired = !\in_array($site['environment'] ?? '', ['dev', 'staging'], true); // Cookie Consent's banner is production only
 $base = '/assets/services/leaflet-maps';
 $version = static function (string $file) use ($base): string {
     $path = ($_SERVER['DOCUMENT_ROOT'] ?? '') . "{$base}/{$file}";
     return \is_file($path) ? '?v=' . \filemtime($path) : '';
 };
 ?>
+<script>window.OsmiumLeafletMaps = {consentRequired: <?= $consentRequired ? 'true' : 'false' ?>};</script>
 <link rel="stylesheet" href="<?= $base ?>/leaflet.css">
 <link rel="stylesheet" href="<?= $base ?>/MarkerCluster.css">
 <link rel="stylesheet" href="<?= $base ?>/MarkerCluster.Default.css">

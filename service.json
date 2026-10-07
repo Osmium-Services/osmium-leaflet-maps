@@ -1,7 +1,7 @@
 {
     "id": "leaflet-maps",
     "name": "Leaflet Maps",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Draws a map of pins (clustered, with a fullscreen button) from OpenStreetMap tiles using a bundled Leaflet, for a theme to place anywhere - no API key, no cookies",
     "category": "developer",
     "author": {
@@ -31,6 +31,6 @@
     },
 
     "setup": {
-        "postInstallNote": "Add <?php $template['serviceBlock']('leaflet-maps-assets'); ?> once on any page that shows a map (it loads Leaflet's CSS and JS). Then place a map with <div data-osmium-map='JSON'></div>, where JSON is {\"pins\":[{\"lat\":51.5,\"lng\":-0.12,\"title\":\"Name\",\"text\":\"Details\",\"url\":\"https://...\",\"inactive\":false}],\"height\":\"400px\",\"fullscreen\":true}. title, text, url, inactive, height and fullscreen are optional. Build the JSON with htmlspecialchars(json_encode(...), ENT_QUOTES). Tiles load from openstreetmap.org when a visitor views a map."
+        "postInstallNote": "Add <?php $template['serviceBlock']('leaflet-maps-assets'); ?> once on any page that shows a map (it loads Leaflet's CSS and JS). Then place a map with <div data-osmium-map='JSON'></div>, where JSON is {\"pins\":[{\"lat\":51.5,\"lng\":-0.12,\"title\":\"Name\",\"text\":\"Details\",\"url\":\"https://...\",\"inactive\":false}],\"height\":\"400px\",\"fullscreen\":true}. title, text, url, inactive, height, fullscreen and consent are optional. Build the JSON with htmlspecialchars(json_encode(...), ENT_QUOTES). Privacy: no cookies are set, but when a map is drawn the visitor's browser fetches tiles from openstreetmap.org, so their IP address reaches OpenStreetMap - name it in your privacy notice. Add \"consent\":true to a map's JSON to hold it back until the visitor accepts cookies (live sites with Cookie Consent; on dev and staging it draws at once)."
     }
 }

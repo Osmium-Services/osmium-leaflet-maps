@@ -1,7 +1,13 @@
 /**
  * Draws a map in every element carrying data-osmium-map, a JSON object:
- *   { pins: [{ lat, lng, title?, text?, url?, inactive? }], height?, fullscreen? }
- * Pin text is inserted as text, never HTML. Tiles: OpenStreetMap.
+ *   { pins: [{ lat, lng, title?, text?, url?, inactive? }], height?, fullscreen?, consent? }
+ * Pin text is inserted as text, never HTML. Tiles: OpenStreetMap, so a visitor's browser
+ * contacts openstreetmap.org (their IP address reaches it) when a map is drawn.
+ *
+ * "consent": true holds the map back until the visitor has accepted cookies (the
+ * osmium_cookie_consent cookie reading 'accepted', or the osmium:consent event). Only on
+ * a live site: window.OsmiumLeafletMaps.consentRequired is false on dev/staging, where
+ * there is no banner, so the map draws at once.
  */
 (function () {
     'use strict';
@@ -51,6 +57,12 @@
         map.addControl(new Control());
     }
 
+    function consentGiven() {
+        var name = (window.OsmiumCookieConsent && window.OsmiumCookieConsent.cookieName) || 'osmium_cookie_consent';
+        var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+        return !!match && decodeURIComponent(match[1]) === 'accepted';
+    }
+
     function draw(element) {
         var options;
         try {
@@ -59,6 +71,27 @@
             return;
         }
 
+        var mustWait = options.consent === true && (window.OsmiumLeafletMaps || {}).consentRequired !== false && !consentGiven();
+        if (mustWait) {
+            element.classList.add('osmium-map');
+            if (options.height) element.style.height = options.height;
+            var notice = document.createElement('div');
+            notice.className = 'osmium-map-notice';
+            notice.textContent = 'This map uses OpenStreetMap. Accept cookies to view it.';
+            element.appendChild(notice);
+            document.addEventListener('osmium:consent', function onConsent(e) {
+                if (!(e.detail && e.detail.value === 'accepted')) return;
+                document.removeEventListener('osmium:consent', onConsent);
+                element.textContent = '';
+                drawMap(element, options);
+            });
+            return;
+        }
+
+        drawMap(element, options);
+    }
+
+    function drawMap(element, options) {
         var pins = (options.pins || []).filter(function (pin) {
             return typeof pin.lat === 'number' && typeof pin.lng === 'number';
         });
