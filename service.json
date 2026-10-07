@@ -1,7 +1,7 @@
 {
     "id": "leaflet-maps",
     "name": "Leaflet Maps",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "Draws a map of pins (clustered, with a fullscreen button) from OpenStreetMap tiles using a bundled Leaflet, for a theme to place anywhere - no API key, no cookies",
     "category": "developer",
     "author": {
