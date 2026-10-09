@@ -12,7 +12,7 @@ $version = static function (string $file) use ($base): string {
     return \is_file($path) ? '?v=' . \filemtime($path) : '';
 };
 ?>
-<script>window.OsmiumLeafletMaps = {consentRequired: <?= $consentRequired ? 'true' : 'false' ?>};</script>
+<script nonce="<?= $cspNonce ?? '' ?>">window.OsmiumLeafletMaps = {consentRequired: <?= $consentRequired ? 'true' : 'false' ?>};</script>
 <link rel="stylesheet" href="<?= $base ?>/leaflet.css">
 <link rel="stylesheet" href="<?= $base ?>/MarkerCluster.css">
 <link rel="stylesheet" href="<?= $base ?>/MarkerCluster.Default.css">
