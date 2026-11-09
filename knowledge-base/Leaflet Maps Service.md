@@ -1,6 +1,6 @@
 # Leaflet Maps Service
 
-Repo: `Osmium-Services/osmium-leaflet-maps`, service id `leaflet-maps`, category developer. Currently v1.1.2<!--v:leaflet-maps--> (v1.0.0 published 2026-10-07; v1.1.0 added the optional consent gate and the privacy disclosure; v1.1.1 gave the map container a full width; v1.1.2 added the CSP nonce to the inline theme-block scripts).
+Repo: `Osmium-Services/osmium-leaflet-maps`, service id `leaflet-maps`, category developer. Currently v1.1.4<!--v:leaflet-maps--> (v1.0.0 published 2026-10-07; v1.1.0 added the optional consent gate and the privacy disclosure; v1.1.1 gave the map container a full width; v1.1.2 added the CSP nonce to the inline theme-block scripts).
 
 ## What it does
 
